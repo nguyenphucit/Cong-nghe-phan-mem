@@ -18,10 +18,18 @@ import javax.swing.table.DefaultTableModel;
  * @author ADMIN
  */
 public class Khohang extends javax.swing.JPanel {
-
-    /**
-     * Creates new form Khohang
-     */
+        Vector data=null;       
+        Connection conn = null;
+        Statement st = null;
+        Statement sttemp=null;
+        java.sql.ResultSet rstemp = null;
+        java.sql.ResultSet rs = null;
+        PreparedStatement ps = null;
+        String dbURL = "jdbc:mysql://localhost/csdl";
+        String username = "root";
+        String password = "";
+         String header[] = {"Mã sách", "Tên sách","Tên tác giả","Giá","Số lượng tồn","Thể loại"};
+         DefaultTableModel tblModel = new DefaultTableModel(header, 0);
     public Khohang() {
         initComponents();
         jTable1.setModel(xuatdanhsachkho());
@@ -29,36 +37,32 @@ public class Khohang extends javax.swing.JPanel {
     }
     public DefaultTableModel xuatdanhsachkho()
     {
-          String header[] = {"Mã sách", "Tên sách","Tên tác giả","Giá","Số lượng tồn","Thể loại"};
-         DefaultTableModel tblModel = new DefaultTableModel(header, 0);
-         Vector data=null;
-         
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
+          tblModel = new DefaultTableModel(header, 0);
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
-                conn = DriverManager.getConnection(dbURL, username, password);
-            // crate statement
+                 conn = DriverManager.getConnection(dbURL, username, password);
                  st = conn.createStatement();
-            // get data from table 'student'
-             rs = st.executeQuery("select * from SACH");
-            
-            
-
+                 sttemp=conn.createStatement();
+                 rs = st.executeQuery("select * from SACH");
             while (rs.next()) {
-                 data = new Vector();
-  data.add(rs.getString("MASACH"));
-  data.add(rs.getString("TENSACH"));
-  data.add(rs.getString("TENTG"));
-  data.add(rs.getString("GIA"));
-  data.add(rs.getInt("SLTON"));
-  data.add(rs.getString("THELOAI"));
-   tblModel.addRow(data);
+                                data = new Vector();
+                 data.add(rs.getString("MASACH"));
+                 data.add(rs.getString("TENSACH"));
+                 rstemp=sttemp.executeQuery("SELECT TENTG from TACGIA WHERE MATG='"+rs.getString("MATG")+"'");
+                 while(rstemp.next()){
+                 data.add(rstemp.getString("TENTG"));
+                 break;
+                 }
+                 data.add(rs.getString("GIA")+" VND");
+                 data.add(rs.getInt("SLTON"));
+                 rstemp=sttemp.executeQuery("SELECT TENTHELOAI FROM LOAISACH WHERE MALOAI='"+rs.getString("MALOAI")+"'");
+                 while(rstemp.next()){
+                 data.add(rstemp.getString("TENTHELOAI"));
+                 break;
+
+                 }
+                  tblModel.addRow(data);
 //                System.out.println(rs.getString(1)+"\t\t"+rs.getString(2));
-            }
+ }
             // close connection
             conn.close();
         } catch (Exception ex) {
@@ -106,6 +110,9 @@ public class Khohang extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("DANH SÁCH");
 
+        jTable1.setBackground(new java.awt.Color(255, 204, 255));
+        jTable1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(0, 102, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -117,9 +124,14 @@ public class Khohang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setFocusable(false);
+        jTable1.setRowHeight(40);
+        jTable1.setSelectionBackground(new java.awt.Color(255, 51, 51));
+        jTable1.setShowHorizontalLines(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel3.setText("Nhập mã sách cần kiếm");
+        jLabel3.setText("Nhập mã/tên sách cần kiếm");
 
         jButton1.setText("tìm kiếm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -237,35 +249,32 @@ public class Khohang extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        String header[] = {"Mã sách", "Tên sách","Tên tác giả","Giá","Số lượng tồn","Thể loại"};
          DefaultTableModel tblModel = new DefaultTableModel(header, 0);
-         Vector data=null;
-         
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
+//                 String dbURL = "jdbc:mysql://localhost/doanweb";
+//                String username = "root";
+//                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
-            // crate statement
                  st = conn.createStatement();
-            // get data from table 'student'
-             rs = st.executeQuery("select * from SACH where TENSACH like '%"+searchbox.getText()+"%'");
-            
-            
-
+                 sttemp=conn.createStatement();
+             rs = st.executeQuery("select * from SACH where MASACH like '%"+searchbox.getText()+"%' OR TENSACH like '%"+searchbox.getText()+"%'  ");
             while (rs.next()) {
-                 data = new Vector();
-  data.add(rs.getString(1));
-  data.add(rs.getString(2));
-  data.add(rs.getString(3));
-  data.add(rs.getString(4));
-  data.add(rs.getInt(5));
-  data.add(rs.getString(6));
-   tblModel.addRow(data);
-//                System.out.println(rs.getString(1)+"\t\t"+rs.getString(2));
+                    data = new Vector();
+                    data.add(rs.getString("MASACH"));
+                    data.add(rs.getString("TENSACH"));
+                    rstemp=sttemp.executeQuery("SELECT TENTG from TACGIA WHERE MATG='"+rs.getString("MATG")+"'");
+                    while(rstemp.next()){
+                    data.add(rstemp.getString("TENTG"));
+                    break;
+                    }
+                    data.add(rs.getString("GIA")+" VND");
+                    data.add(rs.getInt("SLTON"));
+                    rstemp=sttemp.executeQuery("SELECT TENTHELOAI FROM LOAISACH WHERE MALOAI='"+rs.getString("MALOAI")+"'");
+                    while(rstemp.next()){
+                    data.add(rstemp.getString("TENTHELOAI"));
+                    break;
+  }
+        tblModel.addRow(data);
             }
-            // close connection
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -277,15 +286,7 @@ public class Khohang extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-         Vector data=null;
-         PreparedStatement ps = null;
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
                  st = conn.createStatement();
                  ps=(PreparedStatement) conn.prepareStatement("delete from SACH where MASACH = '"+deletebox1.getText()+"'");
@@ -294,9 +295,6 @@ public class Khohang extends javax.swing.JPanel {
                      JOptionPane.showMessageDialog(this,"Đã xóa thành công");
                  else
                       JOptionPane.showMessageDialog(this,"Mã sách không tồn tại");
-
-//                System.out.println(rs.getString(1)+"\t\t"+rs.getString(2));
-            // close connection
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -307,16 +305,11 @@ public class Khohang extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-             PreparedStatement ps = null;
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
+
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
                  st = conn.createStatement();
+                 sttemp=conn.createStatement();
                  rs=st.executeQuery("select * from sach");
                  int flag=0;
                  String masua="";
@@ -331,10 +324,17 @@ public class Khohang extends javax.swing.JPanel {
                          flag=1;
                          masua=rs.getString("MASACH");
                          tensua=rs.getString("TENSACH");
-                         tentgsua=rs.getString("TENTG");
+                          rstemp=sttemp.executeQuery("SELECT TENTG from TACGIA WHERE MATG='"+rs.getString("MATG")+"'");
+                        while(rstemp.next()){
+                         tentgsua=(rstemp.getString("TENTG"));
+                        break;
+                    }
                          giasua=rs.getInt("GIA");
                          slton=rs.getInt("SLTON");
-                         theloai=rs.getString("THELOAI");
+                          rstemp=sttemp.executeQuery("SELECT TENTHELOAI FROM LOAISACH WHERE MALOAI='"+rs.getString("MALOAI")+"'");
+                    while(rstemp.next()){
+                    theloai=(rstemp.getString("TENTHELOAI"));
+                    break;}
                      break;}
                  }
                  if(flag==0)

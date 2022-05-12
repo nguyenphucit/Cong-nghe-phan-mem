@@ -20,9 +20,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Nhaphang extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Nhaphang
-     */
+String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp ","Ngày lập phiếu","tổng tiền"};
+            DefaultTableModel tblModel = new DefaultTableModel(header, 0);
+            Vector data=null;
+            Connection conn = null;
+            Statement st = null;
+            Statement temp=null;
+            java.sql.ResultSet temprs = null;
+            java.sql.ResultSet rs = null;
+            PreparedStatement ps = null;
+            PreparedStatement pstemp = null;
+            String dbURL = "jdbc:mysql://localhost/csdl";
+            String username = "root";
+            String password = "";
+    
     public Nhaphang() {
         
         initComponents();
@@ -31,35 +42,24 @@ public class Nhaphang extends javax.swing.JPanel {
 
    public DefaultTableModel xuatdanhsachphieunhap()
    {
-    String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp ","tổng tiền"};
-         DefaultTableModel tblModel = new DefaultTableModel(header, 0);
-         Vector data=null;
-         
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
+            tblModel = new DefaultTableModel(header, 0);
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
-            // crate statement
                  st = conn.createStatement();
-            // get data from table 'student'
-             rs = st.executeQuery("select * from PHIEUNHAP");
-            
-            
-
+                 temp=conn.createStatement();
+                 rs = st.executeQuery("select * from PHIEUNHAP");
             while (rs.next()) {
                  data = new Vector();
-  data.add(rs.getString(1));
-  data.add(rs.getString(2));
-  data.add(rs.getString(3));
-  data.add(rs.getInt(4));
-   tblModel.addRow(data);
-//                System.out.println(rs.getString(1)+"\t\t"+rs.getString(2));
+                data.add(rs.getString("MAPN"));
+                temprs=temp.executeQuery("SELECT TENNV FROM NHANVIEN WHERE MANV='"+rs.getString("MANV")+ "'");
+                while(temprs.next()){
+                data.add(temprs.getString("TENNV"));
+                break;}
+                data.add(rs.getString("MANCC"));
+                data.add(rs.getString("NGAYTHANG"));
+                data.add(rs.getInt("TONGTIEN"));
+                 tblModel.addRow(data);
             }
-            // close connection
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -188,6 +188,8 @@ public class Nhaphang extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Lập phiếu nhập", viewNhapphieu);
 
+        jTable1.setBackground(new java.awt.Color(102, 255, 255));
+        jTable1.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -199,6 +201,9 @@ public class Nhaphang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setFocusable(false);
+        jTable1.setRowHeight(40);
+        jTable1.setShowHorizontalLines(true);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -223,13 +228,14 @@ public class Nhaphang extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -244,20 +250,14 @@ public class Nhaphang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Connection conn = null;
-        Statement st = null;
-        PreparedStatement ps = null;
-        java.sql.ResultSet rs = null;
-        Vector data=null;
-             try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";   
+
+             try { 
                 conn = DriverManager.getConnection(dbURL, username, password);
-                 ps=(PreparedStatement) conn.prepareStatement("INSERT INTO phieunhap(maphieunhap,tennguoinhap,tennhacc,tongtien) VALUES(?,?,?,0)");
+                 ps=(PreparedStatement) conn.prepareStatement("INSERT INTO phieunhap(mapn,manv,mancc,ngaythang,tongtien) VALUES(?,?,?,?,0)");
                  ps.setString(1,mapn.getText());
                  ps.setString(2,tennguoinhap.getText());
                  ps.setString(3,tenncc.getText());
+                 ps.setString(4,ngaynhap.getText());
                  int check=ps.executeUpdate();
                  if(check==1)
                  {
@@ -272,34 +272,28 @@ public class Nhaphang extends javax.swing.JPanel {
         
         viewchitietpn.removeAll();
         viewchitietpn.setLayout(new BorderLayout());
-        JPanel node=new ViewChitietphieunhap(mapn.getText());
+        JPanel node=new ViewChitietphieunhap(mapn.getText(),tenncc.getText());
         viewchitietpn.add(node);
         viewchitietpn.validate();
         viewchitietpn.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
- Connection conn = null;
-        PreparedStatement st = null;
-        PreparedStatement ps = null;
-        java.sql.ResultSet rs = null;
-             try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String usernamedb = "root";
-                String password = "";   
-                conn =  DriverManager.getConnection(dbURL, usernamedb, password);
-              //  them chi tiet hoa don vao hoa don
-                                st=(PreparedStatement) conn.prepareStatement("select * from chitietphieunhap where maphieunhap=?");
+
+            PreparedStatement st = null;
+             try { 
+                conn =  DriverManager.getConnection(dbURL, username, password);
+                                st=(PreparedStatement) conn.prepareStatement("select * from chitietpn where mapn=?");
                 st.setString(1,mapn.getText());
                 rs = st.executeQuery();
                   int tong=0;
                 while(rs.next())
                 {
                      String gia=rs.getString("gia");
-                     int soluong=rs.getInt("SOLUONGNHAP");
+                     int soluong=rs.getInt("SOLUONG");
                      tong=tong+Integer.parseInt(gia)*soluong;
                 }
-                st=(PreparedStatement) conn.prepareStatement("UPDATE PHIEUNHAP set tongtien=? where MAPHIEUNHAP=?");
+                st=(PreparedStatement) conn.prepareStatement("UPDATE PHIEUNHAP set tongtien=? where MAPN=?");
                 st.setInt(1,tong);
                 st.setString(2,mapn.getText());
                   st.executeUpdate();

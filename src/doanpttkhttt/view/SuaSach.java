@@ -11,21 +11,26 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ADMIN
- */
+
+
 public class SuaSach extends javax.swing.JFrame {
 
-    /**
-     * Creates new form SuaSach
-     */
+       Connection conn = null;
+        Statement st = null;
+        PreparedStatement ps = null;
+        java.sql.ResultSet rs = null;
+        Vector data=null;
+        String dbURL = "jdbc:mysql://localhost/csdl";
+        String username = "root";
+        String password = "";
+    
     public SuaSach() {
         initComponents();
     }
     public SuaSach(String masachsua,String tensachsua,String tentacgiasua,int giasachsua,int solton,String loai) {
         initComponents();
         masua.setText(masachsua);
+        masua.setEnabled(false);
         tensua.setText(tensachsua);
         tentgsua.setText(tentacgiasua);
         giasua.setText(Integer.toString(giasachsua));
@@ -191,24 +196,30 @@ public class SuaSach extends javax.swing.JFrame {
     }//GEN-LAST:event_tensuaActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-             Connection conn = null;
-        Statement st = null;
-        PreparedStatement ps = null;
-        java.sql.ResultSet rs = null;
-        Vector data=null;
-             try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";   
+
+             try {   
                 conn = DriverManager.getConnection(dbURL, username, password);
-                 ps=(PreparedStatement) conn.prepareStatement("UPDATE sach set MASACH=?,TENSACH=?,TENTG=?,GIA=?,SLTON=?,THELOAI=? where MASACH=?");
+                st=conn.createStatement();
+                 ps=(PreparedStatement) conn.prepareStatement("UPDATE TACGIA SET TENTG='"+tentgsua.getText()+"' where MATG=?");
+                 rs=st.executeQuery("SELECT MATG FROM SACH WHERE MASACH='"+masua.getText()+"'");
+                 while(rs.next())
+                 {
+                     ps.setString(1,rs.getString("MATG"));
+                 }
+                 ps.executeUpdate();
+                 ps=(PreparedStatement) conn.prepareStatement("UPDATE LOAISACH SET TENTHELOAI='"+theloai.getText()+"' where MALOAI=? ");
+                 rs=st.executeQuery("SELECT MALOAI FROM SACH WHERE MASACH='"+masua.getText()+"'");
+                 while(rs.next())
+                 {
+                     ps.setString(1,rs.getString("MAloai"));
+                 }
+                 ps.executeUpdate();
+                 ps=(PreparedStatement) conn.prepareStatement("UPDATE sach set MASACH=?,TENSACH=?,GIA=?,SLTON=? where MASACH=?");
                  ps.setString(1,masua.getText());
                  ps.setString(2,tensua.getText());
-                 ps.setString(3,tentgsua.getText());
-                 ps.setInt(4,Integer.parseInt(giasua.getText()));
-                 ps.setInt(5,Integer.parseInt(slton.getText()));
-                 ps.setString(6,theloai.getText());
-                 ps.setString(7,masua.getText());
+                 ps.setInt(3,Integer.parseInt(giasua.getText()));
+                 ps.setInt(4,Integer.parseInt(slton.getText()));
+                 ps.setString(5,masua.getText());
                  int check=ps.executeUpdate();
                  if(check==1)
                  {

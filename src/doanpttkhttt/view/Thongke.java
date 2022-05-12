@@ -16,9 +16,12 @@ import javax.swing.JOptionPane;
  */
 public class Thongke extends javax.swing.JPanel {
 int tongdoanhthu=0;
-    /**
-     * Creates new form Thongke
-     */
+                String dbURL = "jdbc:mysql://localhost/csdl";
+                String username = "root";
+                String password = "";
+                Connection conn = null;
+        Statement st = null;
+        java.sql.ResultSet rs = null;
     public Thongke() {
         initComponents();
         Banhang a=new Banhang();
@@ -170,6 +173,9 @@ int tongdoanhthu=0;
 
         jTabbedPane1.addTab("Thống kê doanh thu", thongke);
 
+        jTable1.setBackground(new java.awt.Color(255, 255, 204));
+        jTable1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTable1.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -181,6 +187,9 @@ int tongdoanhthu=0;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setFocusable(false);
+        jTable1.setRowHeight(20);
+        jTable1.setShowHorizontalLines(true);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout danhsachhdLayout = new javax.swing.GroupLayout(danhsachhd);
@@ -201,6 +210,10 @@ int tongdoanhthu=0;
 
         jTabbedPane1.addTab("Danh sách hóa đơn", danhsachhd);
 
+        jScrollPane2.setBackground(new java.awt.Color(102, 255, 255));
+
+        jTable2.setBackground(new java.awt.Color(102, 255, 255));
+        jTable2.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -212,6 +225,9 @@ int tongdoanhthu=0;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable2.setFocusable(false);
+        jTable2.setRowHeight(40);
+        jTable2.setShowHorizontalLines(true);
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout danhsachpnLayout = new javax.swing.GroupLayout(danhsachpn);
@@ -236,13 +252,14 @@ int tongdoanhthu=0;
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -258,14 +275,7 @@ int tongdoanhthu=0;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         headerban.setVisible(true);
-          
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
                  st = conn.createStatement();
              rs = st.executeQuery("select TONGTIEN from HOADON");
@@ -285,14 +295,7 @@ int tongdoanhthu=0;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         headernhap.setVisible(true);
-          
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
                  st = conn.createStatement();
              rs = st.executeQuery("select TONGTIEN from PHIEUNHAP");
@@ -312,7 +315,7 @@ int tongdoanhthu=0;
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         headerdoanhthu.setVisible(true);
-        valuedoanhthu.setText(Integer.toString(tongdoanhthu));
+        valuedoanhthu.setText(Integer.toString(tongdoanhthu)+" VND");
         valuedoanhthu.setVisible(true);
         if(tongdoanhthu<0)
          JOptionPane.showMessageDialog(this,"Doanh thu của cửa hiệu : Lỗ "+valuedoanhthu.getText()+" VND");

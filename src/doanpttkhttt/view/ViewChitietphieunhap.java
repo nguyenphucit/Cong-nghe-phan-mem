@@ -19,9 +19,11 @@ public class ViewChitietphieunhap extends javax.swing.JPanel {
     public ViewChitietphieunhap() {
         initComponents();
     }
-    public ViewChitietphieunhap(String mapn) {
+    public ViewChitietphieunhap(String mapn,String mancc) {
         initComponents();
         jLabel4.setText(mapn);
+        ncc.setText(mancc);
+        ncc.setVisible(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,6 +41,7 @@ public class ViewChitietphieunhap extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        ncc = new javax.swing.JLabel();
 
         jButton1.setText("Nhập bổ sung");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +66,8 @@ public class ViewChitietphieunhap extends javax.swing.JPanel {
 
         jLabel4.setText("jLabel4");
 
+        ncc.setText("jLabel5");
+
         javax.swing.GroupLayout viewnhaphangLayout = new javax.swing.GroupLayout(viewnhaphang);
         viewnhaphang.setLayout(viewnhaphangLayout);
         viewnhaphangLayout.setHorizontalGroup(
@@ -86,7 +91,9 @@ public class ViewChitietphieunhap extends javax.swing.JPanel {
                         .addComponent(jLabel3))
                     .addGroup(viewnhaphangLayout.createSequentialGroup()
                         .addGap(172, 172, 172)
-                        .addComponent(jLabel4)))
+                        .addGroup(viewnhaphangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ncc)
+                            .addComponent(jLabel4))))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         viewnhaphangLayout.setVerticalGroup(
@@ -104,7 +111,9 @@ public class ViewChitietphieunhap extends javax.swing.JPanel {
                 .addGroup(viewnhaphangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                .addComponent(ncc)
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -131,7 +140,7 @@ public class ViewChitietphieunhap extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         viewnhaphang.removeAll();
        viewnhaphang.setLayout(new BorderLayout());
-       JPanel bosung=new nhapmoi(jLabel4.getText());
+       JPanel bosung=new nhapmoi(jLabel4.getText(),ncc.getText());
        viewnhaphang.add(bosung);
        viewnhaphang.validate();
        viewnhaphang.repaint();
@@ -145,6 +154,7 @@ public class ViewChitietphieunhap extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel ncc;
     private javax.swing.JPanel viewnhaphang;
     // End of variables declaration//GEN-END:variables
 }

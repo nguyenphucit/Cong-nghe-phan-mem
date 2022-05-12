@@ -18,9 +18,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class nhapbosung extends javax.swing.JPanel {
 
-    /**
-     * Creates new form nhapbosung
-     */
+            String header[] = {"Mã sách", "Tên sách","Tên tác giả","Giá","Số lượng tồn","Thể loại"};
+         DefaultTableModel tblModel = new DefaultTableModel(header, 0);
+         Vector data=null;       
+        Connection conn = null;
+        Statement st = null;
+        Statement sttemp=null;
+        java.sql.ResultSet rstemp = null;
+        java.sql.ResultSet rs = null;
+        PreparedStatement ps = null;
+         String dbURL = "jdbc:mysql://localhost/csdl";
+                String username = "root";
+                String password = "";
+    
     public nhapbosung() {
         initComponents();
         jTable1.setModel(danhsachcanbosung());
@@ -33,37 +43,29 @@ public class nhapbosung extends javax.swing.JPanel {
     }
     public DefaultTableModel danhsachcanbosung()
     {
-          String header[] = {"Mã sách", "Tên sách","Tên tác giả","Giá","Số lượng","Thể loại"};
-         DefaultTableModel tblModel = new DefaultTableModel(header, 0);
-         Vector data=null;
-         
-         Connection conn = null;
-        Statement st = null;
-        java.sql.ResultSet rs = null;
+             tblModel = new DefaultTableModel(header, 0);
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
-            // crate statement
                  st = conn.createStatement();
-            // get data from table 'student'
+                 sttemp=conn.createStatement();
              rs = st.executeQuery("select * from SACH where SLTON <= 10");
-            
-            
-
             while (rs.next()) {
-                 data = new Vector();
-  data.add(rs.getString("MASACH"));
-  data.add(rs.getString("TENSACH"));
-  data.add(rs.getString("TENTG"));
-  data.add(rs.getString("GIA"));
-  data.add(rs.getInt("SLTON"));
-  data.add(rs.getString("THELOAI"));
-   tblModel.addRow(data);
-//                System.out.println(rs.getString(1)+"\t\t"+rs.getString(2));
+                  data = new Vector();
+                 data.add(rs.getString("MASACH"));
+                 data.add(rs.getString("TENSACH"));
+                 rstemp=sttemp.executeQuery("SELECT TENTG from TACGIA WHERE MATG='"+rs.getString("MATG")+"'");
+                 while(rstemp.next()){
+                 data.add(rstemp.getString("TENTG"));
+                 break;
+                 }
+                 data.add(rs.getString("GIA"));
+                 data.add(rs.getInt("SLTON"));
+                 rstemp=sttemp.executeQuery("SELECT TENTHELOAI FROM LOAISACH WHERE MALOAI='"+rs.getString("MALOAI")+"'");
+                 while(rstemp.next()){
+                 data.add(rstemp.getString("TENTHELOAI"));
+                 break;}
+                    tblModel.addRow(data);
             }
-            // close connection
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -188,31 +190,25 @@ public class nhapbosung extends javax.swing.JPanel {
         java.sql.ResultSet rs = null;
          try {
 
-        String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
                  st = conn.createStatement();
                  rs=st.executeQuery("select SLTON,TENSACH,GIA FROM SACH WHERE MASACH='"+masachbosung.getText()+"'");
                  int bosung=0;
-                 String ten="";
                  int gia=0;
                  while(rs.next())
                  {
                      bosung+=rs.getInt("SLTON")+Integer.parseInt(soluongbosung.getText());
-                     ten=rs.getString("TENSACH");
                      gia+=rs.getInt("GIA");
                  }
                   ps=(PreparedStatement) conn.prepareStatement("UPDATE SACH SET SLTON="+bosung+" WHERE MASACH = '"+masachbosung.getText()+"'");
                    int check=ps.executeUpdate();
                  if(check==1){
                      JOptionPane.showMessageDialog(this,"Đã bổ sung thành công");
-                      ps=(PreparedStatement) conn.prepareStatement("INSERT INTO CHITIETPHIEUNHAP values(?,?,?,?,?)");
+                      ps=(PreparedStatement) conn.prepareStatement("INSERT INTO CHITIETPN values(?,?,?,?)");
                       ps.setString(1,jLabel4.getText());
                       ps.setString(2,masachbosung.getText());
-                      ps.setString(3,ten);
-                      ps.setInt(4,gia);
-                      ps.setInt(5,Integer.parseInt(soluongbosung.getText()));
+                      ps.setInt(3,gia);
+                      ps.setInt(4,Integer.parseInt(soluongbosung.getText()));
                       ps.executeUpdate();
                  }
                  else

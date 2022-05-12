@@ -17,10 +17,14 @@ import javax.swing.JTable;
  * @author ADMIN
  */
 public class ViewChitiethoadon extends javax.swing.JPanel {
+        Connection conn = null;
+        Statement st = null;
+        PreparedStatement ps = null;
+        java.sql.ResultSet rs = null;
+        String dbURL = "jdbc:mysql://localhost/csdl";
+        String usernamedb = "root";
+        String password = ""; 
 
-    /**
-     * Creates new form ViewChitiethoadon
-     */
     public ViewChitiethoadon() {
         initComponents();
     }
@@ -43,23 +47,23 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
         macthd = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         tenhang = new javax.swing.JTextField();
         soluong = new javax.swing.JTextField();
-        gia = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(252, 252, 252));
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("CHI TIẾT HÓA ĐƠN :");
 
+        macthd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         macthd.setText("jLabel5");
 
-        jLabel1.setText("Tên hàng");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Mã Sách");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Số lượng");
-
-        jLabel3.setText("Giá tiền");
 
         tenhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +71,7 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Thêm ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,54 +85,48 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
             viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewerCTHDLayout.createSequentialGroup()
                 .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(viewerCTHDLayout.createSequentialGroup()
+                            .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(viewerCTHDLayout.createSequentialGroup()
+                                    .addGap(160, 160, 160)
+                                    .addComponent(jLabel1))
+                                .addGroup(viewerCTHDLayout.createSequentialGroup()
+                                    .addGap(157, 157, 157)
+                                    .addComponent(jLabel2))
+                                .addGroup(viewerCTHDLayout.createSequentialGroup()
+                                    .addGap(174, 174, 174)
+                                    .addComponent(macthd)))
+                            .addGap(91, 91, 91))
+                        .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(soluong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                            .addComponent(tenhang, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(viewerCTHDLayout.createSequentialGroup()
-                        .addGap(135, 135, 135)
+                        .addGap(116, 116, 116)
                         .addComponent(jLabel4))
                     .addGroup(viewerCTHDLayout.createSequentialGroup()
-                        .addGap(168, 168, 168)
-                        .addComponent(macthd))
-                    .addGroup(viewerCTHDLayout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(viewerCTHDLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(soluong))
-                            .addGroup(viewerCTHDLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(gia))
-                            .addGroup(viewerCTHDLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tenhang, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(viewerCTHDLayout.createSequentialGroup()
-                        .addGap(152, 152, 152)
+                        .addGap(159, 159, 159)
                         .addComponent(jButton1)))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         viewerCTHDLayout.setVerticalGroup(
             viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewerCTHDLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(macthd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tenhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(gia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tenhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -148,17 +147,10 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
-        Connection conn = null;
-        Statement st = null;
-        PreparedStatement ps = null;
-        java.sql.ResultSet rs = null;
-             try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String usernamedb = "root";
-                String password = "";   
+             try {  
                 conn =  DriverManager.getConnection(dbURL, usernamedb, password);
                 st=(Statement) conn.createStatement();
-                rs=st.executeQuery("select SLTON FROM SACH WHERE TENSACH='"+tenhang.getText()+"'");
+                rs=st.executeQuery("select SLTON FROM SACH WHERE MASACH='"+tenhang.getText()+"'");
                 int ban=0;
                 int conlai=0;
                 if(st==null){
@@ -173,18 +165,21 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                 }
                 if(ban!=0){
                 //them chi tiet hoa don vao hoa don
-                 ps=(PreparedStatement) conn.prepareStatement("INSERT INTO CHITIETHOADON(MAHD,TENHANG,SOLUONG,GIAHANG) VALUES(?,?,?,?)");
+                 ps=(PreparedStatement) conn.prepareStatement("INSERT INTO CHITIETHD(MAHD,MASACH,SOLUONG,GIA) VALUES(?,?,?,?)");
                  ps.setString(1,macthd.getText());
                  ps.setString(2,tenhang.getText());
                  ps.setInt(3,Integer.parseInt(soluong.getText()));
-                 int test=Integer.parseInt(gia.getText());
-                 ps.setInt(4,test);
+                 rs=st.executeQuery("SELECT GIA FROM SACH WHERE MASACH='"+tenhang.getText()+"'");
+                 while(rs.next()){
+                 ps.setInt(4,rs.getInt("GIA"));
+                 break;
+                 }
                  int check=ps.executeUpdate();
                  
                  if(check==1)
                  {
                      int update=conlai-ban;
-                 ps=(PreparedStatement) conn.prepareStatement("UPDATE SACH SET SLTON=? WHERE TENSACH like '%"+tenhang.getText()+"%'");
+                 ps=(PreparedStatement) conn.prepareStatement("UPDATE SACH SET SLTON=? WHERE MASACH like '%"+tenhang.getText()+"%'");
                  ps.setInt(1,update);
                  ps.executeUpdate();
                      JOptionPane.showMessageDialog(this,"đã nhập chi tiết hóa đơn,nếu muốn dừng lại vui lòng chọn HOÀN THÀNH");
@@ -202,11 +197,9 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField gia;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel macthd;
     private javax.swing.JTextField soluong;
