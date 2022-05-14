@@ -65,9 +65,21 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Số lượng");
 
+        tenhang.setBackground(new java.awt.Color(242, 242, 242));
+        tenhang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        tenhang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         tenhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tenhangActionPerformed(evt);
+            }
+        });
+
+        soluong.setBackground(new java.awt.Color(242, 242, 242));
+        soluong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        soluong.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        soluong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                soluongActionPerformed(evt);
             }
         });
 
@@ -116,17 +128,21 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(macthd)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tenhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(viewerCTHDLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewerCTHDLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tenhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(jButton1)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -171,7 +187,7 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                  ps.setInt(3,Integer.parseInt(soluong.getText()));
                  rs=st.executeQuery("SELECT GIA FROM SACH WHERE MASACH='"+tenhang.getText()+"'");
                  while(rs.next()){
-                 ps.setInt(4,rs.getInt("GIA"));
+                    ps.setInt(4,rs.getInt("GIA")+10000);
                  break;
                  }
                  int check=ps.executeUpdate();
@@ -192,8 +208,13 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this,"cửa hàng hiện không có sách này");
             conn.close();
         } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Thông tin hóa đơn có lẽ sai hoặc đã bị trùng,vui lòng nhập lại");
             ex.printStackTrace();}
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void soluongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_soluongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_soluongActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

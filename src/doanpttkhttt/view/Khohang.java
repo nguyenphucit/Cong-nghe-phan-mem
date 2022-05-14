@@ -101,7 +101,7 @@ public class Khohang extends javax.swing.JPanel {
         setBackground(new java.awt.Color(51, 153, 255));
         setPreferredSize(new java.awt.Dimension(799, 428));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabel1.setText("QUẢN LÝ KHO");
 
         jTabbedPane1.setMinimumSize(new java.awt.Dimension(84, 65));

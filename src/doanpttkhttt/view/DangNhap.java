@@ -18,6 +18,9 @@ public class DangNhap extends javax.swing.JFrame {
         Statement st = null;
         java.sql.ResultSet rs = null;
         Vector data=null;
+              String dbURL = "jdbc:mysql://localhost/csdl";
+                String username = "root";
+                String password = "";
     public DangNhap() {
         initComponents();
         jButton1.setBackground(new Color (255,255,255));
@@ -53,6 +56,7 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jLabel2.setText("Password");
 
+        matkhau.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         matkhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         matkhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +85,7 @@ public class DangNhap extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
         jLabel3.setText("Đăng nhập");
 
+        tendangnhap.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         tendangnhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         tendangnhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +156,7 @@ public class DangNhap extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(62, 62, 62)
                 .addComponent(jButton1)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 181, 204));
@@ -201,9 +206,6 @@ public class DangNhap extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
  
              try {
-                 String dbURL = "jdbc:mysql://localhost/doanweb";
-                String username = "root";
-                String password = "";
                 conn = DriverManager.getConnection(dbURL, username, password);
                  st = conn.createStatement();
              rs = st.executeQuery("select * from taikhoan");
@@ -215,13 +217,13 @@ public class DangNhap extends javax.swing.JFrame {
                  JOptionPane.showMessageDialog(this,"bạn chưa nhập đủ tên đăng nhập và mật khẩu");
              else{
               while (rs.next()) {
-                    if(usname.equalsIgnoreCase(rs.getString("USERNAME")) && pwd.equalsIgnoreCase(rs.getString("PASS"))){
+                    if(usname.equalsIgnoreCase(rs.getString("TENDN")) && pwd.equalsIgnoreCase(rs.getString("MATKHAU"))){
                         flag=1;
                         chucvu=rs.getString("chucvu");
                     }                    
-                    else if(!usname.equalsIgnoreCase(rs.getString("USERNAME")) && pwd.equalsIgnoreCase(rs.getString("PASS")))
+                    else if(!usname.equalsIgnoreCase(rs.getString("TENDN")) && pwd.equalsIgnoreCase(rs.getString("MATKHAU")))
                     flag=2;
-                     else if(usname.equalsIgnoreCase(rs.getString("USERNAME")) && !pwd.equalsIgnoreCase(rs.getString("PASS")))
+                     else if(usname.equalsIgnoreCase(rs.getString("TENDN")) && !pwd.equalsIgnoreCase(rs.getString("MATKHAU")))
                      flag=3;                  
                     } 
              }

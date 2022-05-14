@@ -15,6 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.io.File;
+import java.io.FileOutputStream;
+import javax.swing.JFrame;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -76,6 +84,8 @@ public class Banhang extends javax.swing.JPanel {
         jTable1.setBounds(30, 40, 200, 300);
         return tblModel;
     }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -107,16 +117,20 @@ public class Banhang extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setText("BÁN HÀNG");
 
-        mahoadon.setBackground(new java.awt.Color(242, 242, 241));
+        mahoadon.setBackground(new java.awt.Color(242, 242, 242));
+        mahoadon.setFont(new java.awt.Font("Segoe UI Light", 2, 24)); // NOI18N
         mahoadon.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
-        tennguoinhap.setBackground(new java.awt.Color(242, 242, 241));
+        tennguoinhap.setBackground(new java.awt.Color(242, 242, 242));
+        tennguoinhap.setFont(new java.awt.Font("Segoe UI Light", 2, 24)); // NOI18N
         tennguoinhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
-        tenkhachhang.setBackground(new java.awt.Color(242, 242, 241));
+        tenkhachhang.setBackground(new java.awt.Color(242, 242, 242));
+        tenkhachhang.setFont(new java.awt.Font("Segoe UI Light", 2, 24)); // NOI18N
         tenkhachhang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
-        ngaynhap.setBackground(new java.awt.Color(242, 242, 241));
+        ngaynhap.setBackground(new java.awt.Color(242, 242, 242));
+        ngaynhap.setFont(new java.awt.Font("Segoe UI Light", 2, 24)); // NOI18N
         ngaynhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         ngaynhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +180,8 @@ public class Banhang extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel6.setText("Mã khách hàng");
 
-        makh.setBackground(new java.awt.Color(242, 242, 241));
+        makh.setBackground(new java.awt.Color(242, 242, 242));
+        makh.setFont(new java.awt.Font("Segoe UI Light", 2, 24)); // NOI18N
         makh.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -179,37 +194,40 @@ public class Banhang extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewnhapLayout.createSequentialGroup()
                 .addGroup(viewnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(viewnhapLayout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(jLabel2))
-                    .addGroup(viewnhapLayout.createSequentialGroup()
-                        .addGap(156, 156, 156)
-                        .addComponent(jLabel6))
-                    .addGroup(viewnhapLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
                         .addGroup(viewnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)))
-                    .addGroup(viewnhapLayout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addGroup(viewnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
                             .addGroup(viewnhapLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addGroup(viewnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(mahoadon, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                                    .addComponent(tennguoinhap)
-                                    .addComponent(makh)
+                                .addGap(152, 152, 152)
+                                .addComponent(jLabel2))
+                            .addGroup(viewnhapLayout.createSequentialGroup()
+                                .addGap(141, 141, 141)
+                                .addGroup(viewnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)))
+                            .addGroup(viewnhapLayout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addGroup(viewnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
                                     .addGroup(viewnhapLayout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jLabel5))
-                                    .addComponent(ngaynhap)
-                                    .addComponent(tenkhachhang)))))
+                                        .addGap(17, 17, 17)
+                                        .addGroup(viewnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(mahoadon, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                                            .addComponent(tennguoinhap)
+                                            .addComponent(makh)
+                                            .addGroup(viewnhapLayout.createSequentialGroup()
+                                                .addGap(38, 38, 38)
+                                                .addComponent(jLabel5))
+                                            .addComponent(ngaynhap)
+                                            .addComponent(tenkhachhang)))))
+                            .addGroup(viewnhapLayout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jButton2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                                .addComponent(jButton1)))
+                        .addGap(18, 18, 18))
                     .addGroup(viewnhapLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addGap(18, 18, 18)
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(viewChitiethoadon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -267,6 +285,11 @@ public class Banhang extends javax.swing.JPanel {
         jTable1.setFocusable(false);
         jTable1.setRowHeight(40);
         jTable1.setShowHorizontalLines(true);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout danhsachhoadonLayout = new javax.swing.GroupLayout(danhsachhoadon);
@@ -340,7 +363,7 @@ public class Banhang extends javax.swing.JPanel {
             conn.close();
         } catch (Exception ex) {
             ex.printStackTrace();
-        JOptionPane.showMessageDialog(this,"Thông tin nhập bị sai,vui lòng nhập lại");
+          JOptionPane.showMessageDialog(this, "Thông tin hóa đơn có lẽ sai hoặc đã bị trùng,vui lòng nhập lại");
             return;
         }
         
@@ -380,6 +403,15 @@ public class Banhang extends javax.swing.JPanel {
              viewChitiethoadon.repaint();
              xuatdanhsach();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        DefaultTableModel Model=(DefaultTableModel) jTable1.getModel();
+        int selectedRow=jTable1.getSelectedRow();
+        chitiethoadon cthd = new chitiethoadon(Model.getValueAt(selectedRow,0).toString());
+        cthd.setVisible(true);
+        cthd.setBounds(600, 270,cthd.getWidth(), cthd.getHeight());
+        cthd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
