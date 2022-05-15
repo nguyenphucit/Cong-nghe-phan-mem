@@ -210,6 +210,7 @@ Vector data=null;
             }
             conn.close();
         } catch (Exception ex) {
+             JOptionPane.showMessageDialog(this,"Mã nhân viên bị trùng");
             ex.printStackTrace();}
     }//GEN-LAST:event_jButton1ActionPerformed
 

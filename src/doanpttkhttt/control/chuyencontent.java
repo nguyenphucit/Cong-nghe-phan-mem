@@ -140,8 +140,8 @@ public class chuyencontent {
                 item.getJlb().setBackground(new Color(160,100,191));
                 }
             else{
-                 item.getJpn().setBackground(new Color(102,102,255));
-                item.getJlb().setBackground(new Color(102,102,255));
+                 item.getJpn().setBackground(new Color(105,105,105));
+                item.getJlb().setBackground(new Color(105,105,105));
             }
             }
         }

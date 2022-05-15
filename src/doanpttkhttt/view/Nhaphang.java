@@ -92,7 +92,7 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(255, 102, 102));
+        setBackground(new java.awt.Color(153, 255, 153));
         setPreferredSize(new java.awt.Dimension(799, 428));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -236,7 +236,7 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
 
         jTabbedPane1.addTab("Lập phiếu nhập", viewNhapphieu);
 
-        jTable1.setBackground(new java.awt.Color(102, 255, 255));
+        jTable1.setBackground(new java.awt.Color(255, 255, 204));
         jTable1.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

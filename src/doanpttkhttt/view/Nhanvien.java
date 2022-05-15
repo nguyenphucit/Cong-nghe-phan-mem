@@ -182,7 +182,7 @@ public class Nhanvien extends javax.swing.JPanel {
 
         setForeground(new java.awt.Color(255, 204, 204));
 
-        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
         jPanel1.setForeground(new java.awt.Color(255, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
@@ -221,7 +221,7 @@ public class Nhanvien extends javax.swing.JPanel {
             }
         });
 
-        jTable2.setBackground(new java.awt.Color(204, 204, 255));
+        jTable2.setBackground(new java.awt.Color(255, 255, 204));
         jTable2.setForeground(new java.awt.Color(204, 0, 204));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -419,7 +419,7 @@ public class Nhanvien extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Quản lý nhân viên", jPanel2);
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 255));
+        jTable1.setBackground(new java.awt.Color(255, 255, 204));
         jTable1.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jTable1.setForeground(new java.awt.Color(204, 0, 204));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

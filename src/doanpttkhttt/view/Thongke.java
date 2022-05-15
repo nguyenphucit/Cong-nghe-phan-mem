@@ -189,7 +189,7 @@ int tongdoanhthu=0;
         jTable2 = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 153, 255));
+        setBackground(new java.awt.Color(153, 255, 153));
         setPreferredSize(new java.awt.Dimension(799, 428));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -296,7 +296,7 @@ int tongdoanhthu=0;
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Thống kê doanh thu", thongke);
@@ -357,7 +357,7 @@ int tongdoanhthu=0;
 
         jScrollPane2.setBackground(new java.awt.Color(102, 255, 255));
 
-        jTable2.setBackground(new java.awt.Color(102, 255, 255));
+        jTable2.setBackground(new java.awt.Color(255, 255, 204));
         jTable2.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

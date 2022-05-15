@@ -36,11 +36,11 @@ public class DangNhap extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        matkhau = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         tendangnhap = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        matkhau = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -55,14 +55,6 @@ public class DangNhap extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
         jLabel2.setText("Password");
-
-        matkhau.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        matkhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        matkhau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                matkhauActionPerformed(evt);
-            }
-        });
 
         jButton1.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(0, 51, 255));
@@ -111,6 +103,9 @@ public class DangNhap extends javax.swing.JFrame {
             }
         });
 
+        matkhau.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        matkhau.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -128,11 +123,11 @@ public class DangNhap extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(matkhau, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 159, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addComponent(tendangnhap, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(matkhau, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(tendangnhap, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(139, 139, 139))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,13 +145,13 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tendangnhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(36, 36, 36)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(matkhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(62, 62, 62)
+                    .addComponent(jLabel2)
+                    .addComponent(matkhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63)
                 .addComponent(jButton1)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 181, 204));
@@ -198,10 +193,6 @@ public class DangNhap extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void matkhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matkhauActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_matkhauActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
  
@@ -333,7 +324,7 @@ public class DangNhap extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField matkhau;
+    private javax.swing.JPasswordField matkhau;
     private javax.swing.JTextField tendangnhap;
     // End of variables declaration//GEN-END:variables
 }

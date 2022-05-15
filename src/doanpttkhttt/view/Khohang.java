@@ -98,7 +98,7 @@ public class Khohang extends javax.swing.JPanel {
         deletebox1 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(51, 153, 255));
+        setBackground(new java.awt.Color(153, 255, 153));
         setPreferredSize(new java.awt.Dimension(799, 428));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 3, 36)); // NOI18N
@@ -110,7 +110,7 @@ public class Khohang extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel2.setText("DANH SÁCH");
 
-        jTable1.setBackground(new java.awt.Color(255, 204, 255));
+        jTable1.setBackground(new java.awt.Color(255, 255, 204));
         jTable1.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         jTable1.setForeground(new java.awt.Color(0, 102, 102));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
