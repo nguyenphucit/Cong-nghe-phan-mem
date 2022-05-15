@@ -189,7 +189,7 @@ int tongdoanhthu=0;
         jTable2 = new javax.swing.JTable();
         jButton7 = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(153, 255, 153));
+        setBackground(new java.awt.Color(204, 204, 204));
         setPreferredSize(new java.awt.Dimension(799, 428));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N

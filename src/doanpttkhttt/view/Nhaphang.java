@@ -38,6 +38,28 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
         
         initComponents();
         jTable1.setModel(xuatdanhsachphieunhap());
+        setNVNHAP();
+    }
+     public void setNVNHAP()
+    {
+         try {
+                conn =  DriverManager.getConnection(dbURL, username, password);
+                st=(com.mysql.jdbc.Statement) conn.createStatement();
+                rs=st.executeQuery("select MANV FROM TAIKHOAN WHERE CHUCVU='kiểm kho'");
+               while(rs.next())
+               {
+                    manvnhap.addItem(rs.getString("MANV"));
+                
+               }
+               rs=st.executeQuery("select MANCC FROM NHACC");
+               while(rs.next())
+               {
+                    manccnhap.addItem(rs.getString("MANCC"));
+                
+               }
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();}
     }
 
    public DefaultTableModel xuatdanhsachphieunhap()
@@ -82,17 +104,17 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         mapn = new javax.swing.JTextField();
-        tennguoinhap = new javax.swing.JTextField();
-        tenncc = new javax.swing.JTextField();
         ngaynhap = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         viewchitietpn = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        manvnhap = new javax.swing.JComboBox<>();
+        manccnhap = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(153, 255, 153));
+        setBackground(new java.awt.Color(204, 204, 204));
         setPreferredSize(new java.awt.Dimension(799, 428));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
@@ -116,19 +138,6 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
         mapn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mapnActionPerformed(evt);
-            }
-        });
-
-        tennguoinhap.setBackground(new java.awt.Color(242, 242, 242));
-        tennguoinhap.setFont(new java.awt.Font("Segoe UI Light", 2, 24)); // NOI18N
-        tennguoinhap.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-
-        tenncc.setBackground(new java.awt.Color(242, 242, 242));
-        tenncc.setFont(new java.awt.Font("Segoe UI Light", 2, 24)); // NOI18N
-        tenncc.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        tenncc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tennccActionPerformed(evt);
             }
         });
 
@@ -163,6 +172,10 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
             }
         });
 
+        manvnhap.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+
+        manccnhap.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+
         javax.swing.GroupLayout viewNhapphieuLayout = new javax.swing.GroupLayout(viewNhapphieu);
         viewNhapphieu.setLayout(viewNhapphieuLayout);
         viewNhapphieuLayout.setHorizontalGroup(
@@ -170,38 +183,31 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
             .addGroup(viewNhapphieuLayout.createSequentialGroup()
                 .addGroup(viewNhapphieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(viewNhapphieuLayout.createSequentialGroup()
-                        .addGroup(viewNhapphieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(viewNhapphieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNhapphieuLayout.createSequentialGroup()
-                                    .addGap(8, 8, 8)
-                                    .addComponent(jLabel4)
-                                    .addGap(100, 100, 100))
-                                .addGroup(viewNhapphieuLayout.createSequentialGroup()
-                                    .addGap(125, 125, 125)
-                                    .addGroup(viewNhapphieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(tennguoinhap, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tenncc, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(mapn, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ngaynhap, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(67, 67, 67)))
-                            .addGroup(viewNhapphieuLayout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNhapphieuLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel2))
+                    .addGroup(viewNhapphieuLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
                         .addGroup(viewNhapphieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNhapphieuLayout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(173, 173, 173))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNhapphieuLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(135, 135, 135))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewNhapphieuLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(157, 157, 157)))))
+                            .addComponent(ngaynhap, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(viewNhapphieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(manvnhap, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(mapn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                                .addComponent(manccnhap, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(viewNhapphieuLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(jLabel4))
+                    .addGroup(viewNhapphieuLayout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jLabel5))
+                    .addGroup(viewNhapphieuLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jButton2)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton1))
+                    .addGroup(viewNhapphieuLayout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(viewchitietpn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -212,23 +218,23 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(mapn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tennguoinhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addComponent(manvnhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tenncc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(manccnhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ngaynhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(viewNhapphieuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(75, Short.MAX_VALUE))
             .addGroup(viewNhapphieuLayout.createSequentialGroup()
                 .addComponent(viewchitietpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -260,7 +266,7 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -303,8 +309,8 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
                 conn = DriverManager.getConnection(dbURL, username, password);
                  ps=(PreparedStatement) conn.prepareStatement("INSERT INTO phieunhap(mapn,manv,mancc,ngaythang,tongtien) VALUES(?,?,?,?,0)");
                  ps.setString(1,mapn.getText());
-                 ps.setString(2,tennguoinhap.getText());
-                 ps.setString(3,tenncc.getText());
+                 ps.setString(2,manvnhap.getSelectedItem().toString());
+                 ps.setString(3,manccnhap.getSelectedItem().toString());
                  ps.setString(4,ngaynhap.getText());
                  int check=ps.executeUpdate();
                  if(check==1)
@@ -323,7 +329,7 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
         
         viewchitietpn.removeAll();
         viewchitietpn.setLayout(new BorderLayout());
-        JPanel node=new ViewChitietphieunhap(mapn.getText(),tenncc.getText());
+        JPanel node=new ViewChitietphieunhap(mapn.getText(),manccnhap.getSelectedItem().toString());
         viewchitietpn.add(node);
         viewchitietpn.validate();
         viewchitietpn.repaint();
@@ -361,10 +367,6 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
         // TODO add your handling code here:
     }//GEN-LAST:event_mapnActionPerformed
 
-    private void tennccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tennccActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tennccActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
@@ -378,10 +380,10 @@ String header[] = {"mã phiếu nhập","Tên người nhập", "Nhà cung cấp
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> manccnhap;
+    private javax.swing.JComboBox<String> manvnhap;
     private javax.swing.JTextField mapn;
     private javax.swing.JTextField ngaynhap;
-    private javax.swing.JTextField tenncc;
-    private javax.swing.JTextField tennguoinhap;
     private javax.swing.JPanel viewNhapphieu;
     private javax.swing.JPanel viewchitietpn;
     // End of variables declaration//GEN-END:variables

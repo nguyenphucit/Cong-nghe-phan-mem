@@ -22,7 +22,7 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
         PreparedStatement ps = null;
         java.sql.ResultSet rs = null;
         String dbURL = "jdbc:mysql://localhost/csdl";
-        String usernamedb = "root";
+        String username = "root";
         String password = ""; 
 
     public ViewChitiethoadon() {
@@ -31,6 +31,21 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
     public ViewChitiethoadon(String mahd) {
         initComponents();
         macthd.setText(mahd);
+        setsach();
+    }
+      public void setsach()
+    {
+         try {
+                conn =  DriverManager.getConnection(dbURL, username, password);
+                st=(com.mysql.jdbc.Statement) conn.createStatement();
+                rs=st.executeQuery("select TENSACH FROM SACH");
+               while(rs.next())
+               {
+                    sachban.addItem(rs.getString("TENSACH"));
+               }
+            conn.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();}
     }
 
     /**
@@ -47,9 +62,9 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
         macthd = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        tenhang = new javax.swing.JTextField();
         soluong = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        sachban = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(252, 252, 252));
 
@@ -60,19 +75,10 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
         macthd.setText("jLabel5");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Mã Sách");
+        jLabel1.setText("Tên Sách");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Số lượng");
-
-        tenhang.setBackground(new java.awt.Color(242, 242, 242));
-        tenhang.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        tenhang.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        tenhang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tenhangActionPerformed(evt);
-            }
-        });
 
         soluong.setBackground(new java.awt.Color(242, 242, 242));
         soluong.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -91,6 +97,8 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
             }
         });
 
+        sachban.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout viewerCTHDLayout = new javax.swing.GroupLayout(viewerCTHD);
         viewerCTHD.setLayout(viewerCTHDLayout);
         viewerCTHDLayout.setHorizontalGroup(
@@ -104,22 +112,23 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                                     .addGap(160, 160, 160)
                                     .addComponent(jLabel1))
                                 .addGroup(viewerCTHDLayout.createSequentialGroup()
-                                    .addGap(157, 157, 157)
-                                    .addComponent(jLabel2))
-                                .addGroup(viewerCTHDLayout.createSequentialGroup()
                                     .addGap(174, 174, 174)
                                     .addComponent(macthd)))
-                            .addGap(91, 91, 91))
-                        .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(soluong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                            .addComponent(tenhang, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(viewerCTHDLayout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(jLabel4))
+                            .addGap(110, 110, 110))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, viewerCTHDLayout.createSequentialGroup()
+                            .addGap(157, 157, 157)
+                            .addComponent(jLabel2)
+                            .addGap(41, 41, 41))
+                        .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(viewerCTHDLayout.createSequentialGroup()
                         .addGap(159, 159, 159)
-                        .addComponent(jButton1)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                        .addComponent(jButton1))
+                    .addGroup(viewerCTHDLayout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sachban, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         viewerCTHDLayout.setVerticalGroup(
             viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,21 +137,17 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(macthd)
-                .addGroup(viewerCTHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewerCTHDLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel1)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewerCTHDLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tenhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sachban, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(soluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(jButton1)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -157,16 +162,12 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tenhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tenhangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tenhangActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
              try {  
-                conn =  DriverManager.getConnection(dbURL, usernamedb, password);
+                conn =  DriverManager.getConnection(dbURL, username, password);
                 st=(Statement) conn.createStatement();
-                rs=st.executeQuery("select SLTON FROM SACH WHERE MASACH='"+tenhang.getText()+"'");
+                rs=st.executeQuery("select SLTON FROM SACH WHERE TENSACH like'%"+sachban.getSelectedItem().toString()+"%'");
                 int ban=0;
                 int conlai=0;
                 if(st==null){
@@ -183,9 +184,13 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                 //them chi tiet hoa don vao hoa don
                  ps=(PreparedStatement) conn.prepareStatement("INSERT INTO CHITIETHD(MAHD,MASACH,SOLUONG,GIA) VALUES(?,?,?,?)");
                  ps.setString(1,macthd.getText());
-                 ps.setString(2,tenhang.getText());
+                  rs=st.executeQuery("SELECT MASACH FROM SACH WHERE TENSACH like'%"+sachban.getSelectedItem().toString()+"%'");
+                 while(rs.next()){
+                    ps.setString(2,rs.getString("MASACH"));
+                 break;
+                 }
                  ps.setInt(3,Integer.parseInt(soluong.getText()));
-                 rs=st.executeQuery("SELECT GIA FROM SACH WHERE MASACH='"+tenhang.getText()+"'");
+                 rs=st.executeQuery("SELECT GIA FROM SACH WHERE TENSACH like'%"+sachban.getSelectedItem().toString()+"%'");
                  while(rs.next()){
                     ps.setInt(4,rs.getInt("GIA")+10000);
                  break;
@@ -195,7 +200,7 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
                  if(check==1)
                  {
                      int update=conlai-ban;
-                 ps=(PreparedStatement) conn.prepareStatement("UPDATE SACH SET SLTON=? WHERE MASACH like '%"+tenhang.getText()+"%'");
+                 ps=(PreparedStatement) conn.prepareStatement("UPDATE SACH SET SLTON=? WHERE TENSACH like '%"+sachban.getSelectedItem().toString()+"%'");
                  ps.setInt(1,update);
                  ps.executeUpdate();
                      JOptionPane.showMessageDialog(this,"đã nhập chi tiết hóa đơn,nếu muốn dừng lại vui lòng chọn HOÀN THÀNH");
@@ -223,8 +228,8 @@ public class ViewChitiethoadon extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel macthd;
+    private javax.swing.JComboBox<String> sachban;
     private javax.swing.JTextField soluong;
-    private javax.swing.JTextField tenhang;
     private javax.swing.JPanel viewerCTHD;
     // End of variables declaration//GEN-END:variables
 }

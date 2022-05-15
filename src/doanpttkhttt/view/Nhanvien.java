@@ -182,7 +182,7 @@ public class Nhanvien extends javax.swing.JPanel {
 
         setForeground(new java.awt.Color(255, 204, 204));
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 153));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setForeground(new java.awt.Color(255, 204, 204));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
